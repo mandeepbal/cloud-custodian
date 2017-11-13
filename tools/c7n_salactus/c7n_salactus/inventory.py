@@ -62,16 +62,8 @@ def load_manifest_file(client, bucket, schema, versioned, ifilters, key_info):
             yield keys
 
 
-def is_delete_marker(ischema, kr):
-    """Is the given key record for a delete marker?
-        "fileSchema" : "Bucket, Key, VersionId, IsLatest,
-                        IsDeleteMarker, Size, LastModifiedDate, EncryptionStatus"
-    """
-    return kr[4] == 'true'
-
-
 def inventory_filter(ifilters, ischema, kr):
-    if is_delete_marker(ischema, kr):
+    if 'IsDeleteMarker' in ischema and kr[ischema['IsDeleteMarker']] == 'true':
         return True
 
     for f in ifilters:
