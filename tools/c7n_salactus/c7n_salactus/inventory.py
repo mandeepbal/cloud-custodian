@@ -67,9 +67,7 @@ def is_delete_marker(ischema, kr):
         "fileSchema" : "Bucket, Key, VersionId, IsLatest,
                         IsDeleteMarker, Size, LastModifiedDate, EncryptionStatus"
     """
-    if 'IsDeleteMarker' not in ischema:
-        return False
-    return kr[ischema['IsDeleteMarker']] == 'true'
+    return kr[4] == 'true'
 
 
 def inventory_filter(ifilters, ischema, kr):
